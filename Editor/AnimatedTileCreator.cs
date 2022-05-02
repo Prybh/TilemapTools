@@ -42,7 +42,7 @@ namespace TilemapTools
             minSize = new Vector2(300, 500);
             maxSize = new Vector2(300, 1200);
 
-			/*
+            /*
             if (GUILayout.Button("Default test values"))
             {
                 tileset = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Tilesets/Windows/Windows.png", typeof(Texture2D));
@@ -71,7 +71,7 @@ namespace TilemapTools
                 data2.sprites.Add(null);
                 animatedTiles.Add(data2);
             }
-			*/
+            */
 
             string tilesetName = tileset == null ? "Select an animated tileset" : "Tileset: " + tileset.name;
             Texture2D previousTileset = tileset;
