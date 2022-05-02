@@ -1,12 +1,12 @@
 {
-  "name": "com.prybh.XXXXXXX",
-  "version": "0.0.0",
-  "displayName": "XXXXXXX",
-  "description": "XXXXXXX",
+  "name": "com.prybh.tilemaptools",
+  "version": "1.0.0",
+  "displayName": "TilemapTools",
+  "description": "TilemapTools",
   "unity": "2021.3",
-  "documentationUrl": "https://github.com/Prybh/XXXXXXX",
-  "changelogUrl": "https://github.com/Prybh/XXXXXXX/CHANGELOG.md",
-  "licensesUrl": "https://github.com/Prybh/XXXXXXX/LICENSE.md",
+  "documentationUrl": "https://github.com/Prybh/TilemapTools",
+  "changelogUrl": "https://github.com/Prybh/TilemapTools/CHANGELOG.md",
+  "licensesUrl": "https://github.com/Prybh/TilemapTools/LICENSE.md",
   "dependencies": {},
   "keywords": [
     "unitypackage"
