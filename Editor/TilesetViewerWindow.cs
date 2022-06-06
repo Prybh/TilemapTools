@@ -228,7 +228,8 @@ namespace TilemapTools
             {
                 zoom = newZoom;
 
-                Vector2 mousePosition = Handles.inverseMatrix.MultiplyPoint3x4(Event.current.mousePosition + scrollPosition);
+                Vector2 mouseGlobal = Event.current != null ? Event.current.mousePosition : Vector2.zero;
+                Vector2 mousePosition = Handles.inverseMatrix.MultiplyPoint3x4(mouseGlobal + scrollPosition);
                 Vector2 delta = (mousePosition - 0.5f * new Vector2(textureWidth, textureHeight)) * (multiplier - 1f);
                 scrollPosition += (Vector2)Handles.matrix.MultiplyVector(delta);
             }

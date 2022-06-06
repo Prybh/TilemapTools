@@ -97,10 +97,7 @@ namespace TilemapTools
             EditorGUILayout.Separator();
 
             parameters.createTileAssets = EditorGUILayout.Toggle("Create Tile Assets", parameters.createTileAssets);
-            if (parameters.createTileAssets)
-            {
-                parameters.createTilePalette = EditorGUILayout.Toggle("Create Tile Palette", parameters.createTilePalette);
-            }
+            parameters.createTilePalette = EditorGUILayout.Toggle("Create Tile Palette", parameters.createTilePalette);
 
             EditorGUILayout.Separator();
 

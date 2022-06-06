@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace TilemapTools
 {
-    public class AnimatedTileCreator : EditorWindow
+    public class AnimatedTileCreatorWindow : EditorWindow
     {
         private class AnimatedTileData
         {
@@ -33,7 +33,7 @@ namespace TilemapTools
         [MenuItem("Window/Tilemap Tools/Animated Tile Creator")]
         public static void ShowWindow()
         {
-            EditorWindow.GetWindow<AnimatedTileCreator>().Show();
+            EditorWindow.GetWindow<AnimatedTileCreatorWindow>().Show();
         }
 
         private void OnGUI()
