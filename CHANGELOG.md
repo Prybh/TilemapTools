@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/Prybh/TilemapTools/compare/v1.0.1...v1.0.2) (2022-06-08)
+
+
+### Bug Fixes
+
+* Improve debug info ([d4dc55b](https://github.com/Prybh/TilemapTools/commit/d4dc55b964cf0398cb4d87445a85d3984917c7d2))
+
 ## [1.0.1](https://github.com/Prybh/TilemapTools/compare/v1.0.0...v1.0.1) (2022-06-06)
 
 
