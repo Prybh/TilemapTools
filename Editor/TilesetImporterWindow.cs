@@ -44,13 +44,15 @@ namespace TilemapTools
                     parameters.sourcePath = path;
                 }
                 GUILayout.Space(5);
+				
+				string previousSourcePath = parameters.sourcePath;
 
                 parameters.sourcePath = FileField(parameters.sourcePath, ".png", new GUIContent("Tileset path", "Input tileset path"), 72, 310);
 
-                if (parameters.sourcePath != null && parameters.sourcePath.Length > 0 && (parameters.name == null || parameters.name.Length == 0))
+                if (parameters.sourcePath != null && parameters.sourcePath.Length > 0 && (previousSourcePath != parameters.sourcePath || parameters.name == null || parameters.name.Length == 0))
                 {
-                    parameters.name = Path.GetFileNameWithoutExtension(parameters.sourcePath);
-                }
+					parameters.name = Path.GetFileNameWithoutExtension(parameters.sourcePath);
+                }	
             }
 
             EditorGUILayout.Separator();
@@ -169,7 +171,7 @@ namespace TilemapTools
 
         private void DoImport()
         {
-            Debug.Log("Import tileset...");
+            Debug.Log("Importing tileset (" + parameters.name + ") ...");
 
             if (TilesetImporter.Import(parameters))
             {
@@ -181,19 +183,19 @@ namespace TilemapTools
                 Texture2D tileset = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/" + imageTargetPath);
                 if (tileset)
                 {
-                    Debug.Log("Tileset imported");
+                    Debug.Log("Tileset (" + parameters.name + ") imported");
                     Selection.activeObject = tileset;
 
                     TilesetViewerWindow.ShowTileset(tileset, false);
                 }
                 else
                 {
-                    Debug.LogWarning("Couldn't find imported tileset. Unhandled error might have occured...");
+                    Debug.LogWarning("Couldn't find imported tileset ("  + parameters.name + "). Unhandled error might have occured...");
                 }
             }
             else
             {
-                Debug.LogError("Import failed");
+                Debug.LogError("Importation of tileset ("  + parameters.name + ") failed");
             }
         }
 
