@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Prybh/TilemapTools/compare/v1.0.2...v1.1.0) (2022-06-13)
+
+
+### Features
+
+* Add pivot and collider ([b297f91](https://github.com/Prybh/TilemapTools/commit/b297f91cca3bb71631818978ad3967db924e35a8))
+
 ## [1.0.2](https://github.com/Prybh/TilemapTools/compare/v1.0.1...v1.0.2) (2022-06-08)
 
 
