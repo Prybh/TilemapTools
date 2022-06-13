@@ -17,12 +17,17 @@ namespace TilemapTools
             public string sourcePath;
             public string tilesetDir;
             public int pixelsPerUnit;
+            public bool generateSpriteFallbackPhysicsShape;
 
             public Vector2Int gridCellSize;
             public Vector2Int gridCellOffset;
             public Vector2Int gridCellPadding;
+            public Vector2 spritePivot;
+            public SpriteAlignment spriteAlignment;
 
             public bool createTileAssets;
+            public Tile.ColliderType tileColliderType;
+
             public bool createTilePalette;
 
             public bool addToAtlas;
@@ -102,7 +107,7 @@ namespace TilemapTools
             textureImporter.ReadTextureSettings(textureSettings);
             textureSettings.spriteMode = (int)SpriteImportMode.Multiple;
             textureSettings.spritePixelsPerUnit = (float)parameters.pixelsPerUnit;
-            textureSettings.spriteGenerateFallbackPhysicsShape = true; // TODO : Option ?
+            textureSettings.spriteGenerateFallbackPhysicsShape = parameters.generateSpriteFallbackPhysicsShape;
             textureSettings.filterMode = FilterMode.Point;
             textureImporter.textureCompression = TextureImporterCompression.Uncompressed; // Needed for GenerateGridSpriteRectangles
             textureImporter.SetTextureSettings(textureSettings);
@@ -132,10 +137,11 @@ namespace TilemapTools
                     for (int i = 0; i < rects.Length; ++i)
                     {
                         SpriteMetaData sprite = new SpriteMetaData();
-                        sprite.pivot = new Vector2(0.5f, 0.5f);
-                        sprite.alignment = (int)SpriteAlignment.Center;
                         sprite.name = texture.name + "_" + i;
                         sprite.rect = rects[i];
+
+                        sprite.alignment = (int)parameters.spriteAlignment;
+                        sprite.pivot = GetPivotValue(parameters.spriteAlignment, parameters.spritePivot);
 
                         spritesheet.Add(sprite);
                     }
@@ -159,7 +165,7 @@ namespace TilemapTools
             if (parameters.createTileAssets)
             {
                 AssetDatabase.StartAssetEditing();
-                Tile.ColliderType colliderType = Tile.ColliderType.Grid; // TODO : Option ?
+                Tile.ColliderType colliderType = parameters.tileColliderType;
                 Sprite[] subSprites = AssetDatabase.LoadAllAssetsAtPath("Assets" + '/' + imageTargetPath).OfType<Sprite>().ToArray();
                 tileAssets = new List<Tile>(subSprites.Length);
                 foreach (Sprite tileSprite in subSprites)
@@ -306,6 +312,48 @@ namespace TilemapTools
             string folderName = Path.GetFileName(path);
             string guid = AssetDatabase.CreateFolder(parent.ToString(), folderName);
             return guid != null && guid.Length > 0;
+        }
+
+        public static Vector2 GetPivotValue(SpriteAlignment alignment, Vector2 customOffset)
+        {
+            Vector2 result;
+            switch (alignment)
+            {
+                case SpriteAlignment.Center:
+                    result = new Vector2(0.5f, 0.5f);
+                    break;
+                case SpriteAlignment.TopLeft:
+                    result = new Vector2(0f, 1f);
+                    break;
+                case SpriteAlignment.TopCenter:
+                    result = new Vector2(0.5f, 1f);
+                    break;
+                case SpriteAlignment.TopRight:
+                    result = new Vector2(1f, 1f);
+                    break;
+                case SpriteAlignment.LeftCenter:
+                    result = new Vector2(0f, 0.5f);
+                    break;
+                case SpriteAlignment.RightCenter:
+                    result = new Vector2(1f, 0.5f);
+                    break;
+                case SpriteAlignment.BottomLeft:
+                    result = new Vector2(0f, 0f);
+                    break;
+                case SpriteAlignment.BottomCenter:
+                    result = new Vector2(0.5f, 0f);
+                    break;
+                case SpriteAlignment.BottomRight:
+                    result = new Vector2(1f, 0f);
+                    break;
+                case SpriteAlignment.Custom:
+                    result = customOffset;
+                    break;
+                default:
+                    result = Vector2.zero;
+                    break;
+            }
+            return result;
         }
     }
 }

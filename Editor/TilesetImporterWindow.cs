@@ -8,6 +8,7 @@ namespace TilemapTools
     public class TilesetImporterWindow : EditorWindow
     {
         private TilesetImporter.TilesetImportParameters parameters;
+        private bool initialized = false;
         private bool cellSizeChanged = false;
 
         [MenuItem("Window/Tilemap Tools/Tileset Importer")]
@@ -22,18 +23,15 @@ namespace TilemapTools
             minSize = new Vector2(350, 350);
             maxSize = new Vector2(350, 900);
 
-            /*
-            if (GUILayout.Button("Default test values"))
+            if (!initialized)
             {
-                parameters.sourcePath = "C:/Users/x/Desktop/Tileset.png";
-                parameters.tilesetDir = "C:/Users/x/Desktop/UnityProject/Assets/Tilesets";
-                parameters.name = "Tileset";
-                parameters.pixelsPerUnit = 32;
-                parameters.gridCellSize = new Vector2Int(32, 32);
-                parameters.createTileAssets = true;
-                parameters.createTilePalette = true;
+                parameters.generateSpriteFallbackPhysicsShape = true;
+                parameters.spriteAlignment = SpriteAlignment.Center;
+                parameters.spritePivot = new Vector2(0.5f, 0.5f);
+                parameters.tileColliderType = UnityEngine.Tilemaps.Tile.ColliderType.Grid;
+
+                initialized = true;
             }
-            */
 
             // Source file
             {
@@ -68,6 +66,7 @@ namespace TilemapTools
             EditorGUILayout.Separator();
 
             parameters.pixelsPerUnit = EditorGUILayout.IntField("Pixels Per Unit", parameters.pixelsPerUnit);
+            parameters.generateSpriteFallbackPhysicsShape = EditorGUILayout.Toggle("Generate Sprite Physics", parameters.generateSpriteFallbackPhysicsShape);
 
             EditorGUILayout.Separator();
 
@@ -94,11 +93,27 @@ namespace TilemapTools
             parameters.gridCellOffset = EditorGUILayout.Vector2IntField("Offset", parameters.gridCellOffset);
             parameters.gridCellPadding = EditorGUILayout.Vector2IntField("Padding", parameters.gridCellPadding);
 
+            EditorGUILayout.Separator();
+
+            parameters.spriteAlignment = (SpriteAlignment)EditorGUILayout.EnumPopup("Pivot", parameters.spriteAlignment);
+            if (parameters.spriteAlignment == SpriteAlignment.Custom)
+            {
+                parameters.spritePivot = EditorGUILayout.Vector2Field("CustomPivot", parameters.spritePivot);
+            }
+
             EditorGUIUtility.wideMode = previousWideMode;
 
             EditorGUILayout.Separator();
 
             parameters.createTileAssets = EditorGUILayout.Toggle("Create Tile Assets", parameters.createTileAssets);
+
+            if (parameters.createTileAssets)
+            {
+                parameters.tileColliderType = (UnityEngine.Tilemaps.Tile.ColliderType)EditorGUILayout.EnumPopup("Tile Collider Type", parameters.tileColliderType);
+            }
+
+            EditorGUILayout.Separator();
+
             parameters.createTilePalette = EditorGUILayout.Toggle("Create Tile Palette", parameters.createTilePalette);
 
             EditorGUILayout.Separator();
