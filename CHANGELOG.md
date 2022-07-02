@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/Prybh/TilemapTools/compare/v1.1.0...v1.1.1) (2022-07-02)
+
+
+### Bug Fixes
+
+* Fix editor build ([e0b6953](https://github.com/Prybh/TilemapTools/commit/e0b6953f034b9197c30066780d682c4a1f82d6d9))
+
 # [1.1.0](https://github.com/Prybh/TilemapTools/compare/v1.0.2...v1.1.0) (2022-06-13)
 
 
